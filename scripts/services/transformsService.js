@@ -24,27 +24,29 @@ app.transformationsService = function () {
     }
     function enableTransformation() {
         $(_elements).each(function () {
-            var element = $(this);
-            var overlayElement = createOverlayElement();
-            element.hover(function () {
-                element.append(overlayElement);
-                var rotateButton = overlayElement.find(".rotatebtn");
-                rotateButton.mousedown(function () {
-                    startTranformationForElement(element, ROTATE_ACTION);
-                    event.stopPropagation();
-                });
-                element.mousedown(function () {
-                    startTranformationForElement(element, MOVE_ACTION);
-                });
-            }, function () {
-                overlayElement.remove();
-            });
-
+            attachEvents($(this));
         });
     }
 
     function disableTransformation() {
         $(_elements).unbind('mouseenter mouseleave mousedown');
+    }
+
+    function attachEvents(element) {
+        var overlayElement = createOverlayElement();
+        element.hover(function () {
+            element.append(overlayElement);
+            var rotateButton = overlayElement.find(".rotatebtn");
+            rotateButton.mousedown(function () {
+                startTranformationForElement(element, ROTATE_ACTION);
+                event.stopPropagation();
+            });
+            element.mousedown(function () {
+                startMove(element);
+            });
+        }, function () {
+            overlayElement.remove();
+        });
     }
     function startTranformationForElement(element, action) {
         var imgSrc = element.find("img").attr('src');
@@ -60,6 +62,17 @@ app.transformationsService = function () {
         var btnElement = $('<button class="rotatebtn"></button>');
         element.append(btnElement);
         return element;
+    }
+    function startMove(element) {
+        startTranformationForElement(element, MOVE_ACTION);
+        //change photo position to top of the list (bring to front)
+        var photo = _photos[element.find('img').attr('src')];
+        delete _photos[element.find('img').attr('src')];
+        _photos[photo.url] = photo;
+        //move the photo element to top
+        var container = element.parent();
+        container.append(element);
+        attachEvents(element);
     }
 
     function mouseup() {
