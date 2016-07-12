@@ -1,0 +1,26 @@
+.imageitem{
+    cursor:move !important;
+    position:absolute;
+    display:inline-block;
+}
+.navbar{
+        z-index:999;
+}
+input,button{
+    padding:5px;
+}
+
+.rotatebtn{
+    height:35px;
+    width:35px;
+    background: url(rotate.png);
+    cursor:arrow !important;
+    position:absolute;
+    top:0;
+    left:0;
+    display:none;
+}
+
+.imageitem:hover .rotatebtn{
+    display:block;
+}
