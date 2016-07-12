@@ -3,17 +3,32 @@
 
 <head>
     <title>Rotation Flickr Example</title>
-    <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
-
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="navbar">
-        <input placeholder="Search..." type="text" id="query" value="" /><button id="fetch">Fetch photos from flickr</button>
-        <button id="lock">Lock</button>
-    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                        My Photos
+                    </a>
+            </div>
+            <div class="navbar-form navbar-left" role="search">
+                <div class="input-group">
+                    <input type="text" id="query" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button id="fetch" class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
+                <button id="lock" class="btn btn-success"><i class="glyphicon glyphicon-lock"></i></button>
+            </div>
+        </div>
+    </nav>
     <div id="container" class="editable">
 
     </div>
@@ -22,6 +37,7 @@
     <script src="scripts/services/photoService.js"></script>
     <script src="scripts/services/transformsService.js"></script>
     <script src="scripts/services/elementsCreatorService.js"></script>
+    <script src="scripts/services/toolbar.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 

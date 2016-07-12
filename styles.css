@@ -20,7 +20,6 @@ body{
 }
 #lock{
     margin-left:10px;
-    width:100px;
 }
 .navbar{
         z-index:999;
@@ -32,9 +31,6 @@ input,button{
     padding:5px;
 }
 .rotatebtn{
-    height:35px;
-    width:35px;
-    background: url(rotate.png);
     cursor:arrow !important;
     position:absolute;
     bottom:0;
@@ -44,6 +40,7 @@ input,button{
 .editable .imageitem:hover{
     border:solid 1px red;
 }
-#lock{
-    font-weight: bold;
+
+.navbar {
+    margin-bottom:0;
 }

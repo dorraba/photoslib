@@ -1,7 +1,7 @@
 var app = app || {};
 app.transformationsService = function () {
     var _photos, _elements, _finishCallback;
-    var _currentElement = null;
+    var _currentTransformingElement = null;
     var _currentPhoto = null;
     var _currentAction = null; //rotate, move
     var MOVE_ACTION = "move";
@@ -51,16 +51,16 @@ app.transformationsService = function () {
     function startTranformationForElement(element, action, event) {
         event.stopPropagation();
         var index = bringToFront(element);
-        _currentElement = element;
+        _currentTransformingElement = element;
         _currentPhoto = _photos[index];
         _currentAction = action;
-        _originX = _currentElement[0].offsetLeft - event.pageX;
-        _originY = _currentElement[0].offsetTop - event.pageY;
+        _originX = _currentTransformingElement[0].offsetLeft - event.pageX;
+        _originY = _currentTransformingElement[0].offsetTop - event.pageY;
     }
 
     function createOverlayElement() {
         var element = $('<div class="overlay"></div>')
-        var btnElement = $('<button class="rotatebtn"></button>');
+        var btnElement = $('<button class="rotatebtn btn btn-default"><i class="glyphicon glyphicon-repeat"></i></button>');
         element.append(btnElement);
         return element;
     }
@@ -77,26 +77,26 @@ app.transformationsService = function () {
     }
 
     function mouseup() {
-        if (_currentElement) {
-            _currentElement = null;
+        if (_currentTransformingElement) {
+            _currentTransformingElement = null;
             _currentAction = null;
             _finishCallback();
         }
     }
     function mousemove(e) {
-        if (_currentElement) {
+        if (_currentTransformingElement) {
             if (_currentAction == ROTATE_ACTION) {
-                var radX = e.pageX - _currentElement[0].offsetLeft - (_currentElement.width() / 2);
-                var radY = e.pageY - _currentElement[0].offsetTop - (_currentElement.height() / 2);
+                var radX = e.pageX - _currentTransformingElement[0].offsetLeft - (_currentTransformingElement.width() / 2);
+                var radY = e.pageY - _currentTransformingElement[0].offsetTop - (_currentTransformingElement.height() / 2);
                 var radians = Math.atan2(radX, radY);
                 var degree = (radians * (180 / Math.PI) * -1) + 90;
-                _currentElement.css('transform', 'rotate(' + degree + 'deg)');
+                _currentTransformingElement.css('transform', 'rotate(' + degree + 'deg)');
                 _currentPhoto.degree = degree;
             }
             else if (_currentAction == MOVE_ACTION) {
                 var top = e.pageY + _originY;
                 var left = e.pageX + _originX;
-                _currentElement.css({
+                _currentTransformingElement.css({
                     top: top,
                     left: left
                 })

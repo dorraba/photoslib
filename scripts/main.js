@@ -1,7 +1,7 @@
 var app = app || {};
-app.lock = false;
 (function () {
     var transformService = app.transformationsService();
+    var toolbar = app.toolbar(toolbarClicked);
     initializePhotos();
 
     function initializePhotos(query) {
@@ -11,25 +11,20 @@ app.lock = false;
                 var elements = app.elementsCreatorService.create(photos, container);
                 var saveFunc = app.photoService.save.bind(null, photos);
                 transformService.initialize(photos, elements, saveFunc);
-                transformService.enable();
+                if (!toolbar.isLocked()) {
+                    transformService.enable();
+                }
             });
     }
 
-    $('#lock').click(function () {
-        app.lock = !app.lock;
-        if (app.lock) {
-            $(this).text("Unlock");
-            transformService.disable();
-            $('#container').removeClass('editable');
-        } else {
-            $(this).text("Lock");
-            transformService.enable();
-            $('#container').addClass('editable');
+    function toolbarClicked(action, value) {
+        if (action == "lock") {
+            value.locked ? transformService.disable() : transformService.enable();
         }
-    });
+        else if (action == "search") {
+            initializePhotos(value.query);
+        }
+    }
 
-    $('#fetch').click(function () {
-        initializePhotos($('#query').val())
-    });
 })();
 
