@@ -1,7 +1,7 @@
 var app = app || {};
 app.lock = false;
 (function () {
-    var transformService = app.transformationsService()
+    var transformService = app.transformationsService();
     initializePhotos();
 
     function initializePhotos(query) {

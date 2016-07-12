@@ -8,10 +8,11 @@ var app = app || {};
     function create(photos, containerElement) {
         var container = $("#container");
         container.html("");
-        for (var url in photos) {
+        for (var i in photos) {
             (function () {
-                var imgContainerElement = createImageContainerElement(photos[url]);
-                var imgElement = createImageElement(url);
+                var photo = photos[i];
+                var imgContainerElement = createImageContainerElement(photo);
+                var imgElement = createImageElement(photo.url);
                 imgContainerElement.append(imgElement)
                 $(containerElement).append(imgContainerElement);
             })();

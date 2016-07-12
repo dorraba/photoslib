@@ -8,7 +8,7 @@ var app = app || {};
 
     function get(query) {
         var photosStr = localStorage.getItem("photos");
-        if (photosStr && photosStr != "{}" && query == undefined) {
+        if (photosStr && photosStr != "[]" && query == undefined) {
             var def = $.Deferred();
             var photos = JSON.parse(photosStr);
             def.resolve(photos);
@@ -22,16 +22,16 @@ var app = app || {};
 
     function fetchPhotos(query) {
         var def = $.Deferred();
-        var photos = {};
+        var photos = [];
         app.flickrService.get(query).then(function (data) {
             for (var i in data) {
                 var item = data[i];
-                photos[item.media.m] = {
+                photos.push({
                     degree: Math.random() * 360,
                     top: Math.random() * (window.innerHeight - 300),
                     left: Math.random() * (window.innerWidth - 300),
                     url: item.media.m
-                }
+                })
             }
             save(photos);
             def.resolve(photos);
