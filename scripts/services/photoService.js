@@ -12,6 +12,7 @@ var app = app || {};
             var def = $.Deferred();
             var photos = JSON.parse(photosStr);
             def.resolve(photos);
+            console.log("photos loaded from storage");
             return def.promise();
         }
         else {
@@ -23,7 +24,8 @@ var app = app || {};
         var def = $.Deferred();
         var photos = {};
         app.flickrService.get(query).then(function (data) {
-            for (var item of data) {
+            for (var i in data) {
+                var item = data[i];
                 photos[item.media.m] = {
                     degree: Math.random() * 360,
                     top: Math.random() * (window.innerHeight - 300),
@@ -42,5 +44,6 @@ var app = app || {};
 
     function save(photos) {
         localStorage.setItem("photos", JSON.stringify(photos));
+        console.log("photos has been saved to storage");
     }
 })();

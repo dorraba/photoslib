@@ -11,19 +11,17 @@ app.transformationsService.enableTransformations = function (photos, elements, f
     initialize();
 
     function initialize() {
-        for (var element of _elements) {
-            (function () {
-                var jElement = $(element);
-                var rotateButton = jElement.find(".rotatebtn");
-                rotateButton.mousedown(function () {
-                    startTranformationForElement(jElement, ROTATE_ACTION);
-                    event.stopPropagation();
-                });
-                jElement.mousedown(function () {
-                    startTranformationForElement(jElement, MOVE_ACTION);
-                });
-            })()
-        }
+        $(_elements).each(function () {
+            var element = $(this);
+            var rotateButton = element.find(".rotatebtn");
+            rotateButton.mousedown(function () {
+                startTranformationForElement(element, ROTATE_ACTION);
+                event.stopPropagation();
+            });
+            element.mousedown(function () {
+                startTranformationForElement(element, MOVE_ACTION);
+            });
+        });
     }
 
     function startTranformationForElement(element, action) {
