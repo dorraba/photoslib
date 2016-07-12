@@ -1,9 +1,17 @@
 var app = app || {};
-app.initializePhotos = function (forceRetreive) {
-    var query = $('#query').val();
-    app.photoService.initialize(query, forceRetreive)
-        .then(app.elementsCreatorService.create);
+app.initializePhotos = function (query) {
+    app.photoService.get(query)
+        .then(function(photos){
+            var container = document.getElementById("container");
+            var elements = app.elementsCreatorService.create(photos, container);
+            var saveFunc = app.photoService.save.bind(null,photos);
+            app.transformationsService.enableTransformations(photos, elements, saveFunc);
+        });
 }
+
+$('#fetch').click(function(){
+    app.initializePhotos($('#query').val())
+});
 
 app.initializePhotos();
 

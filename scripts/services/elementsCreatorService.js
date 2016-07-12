@@ -3,7 +3,7 @@ var app = app || {};
 (function () {
     app.elementsCreatorService = {};
 
-    app.elementsCreatorService.create = function(photos) {
+    app.elementsCreatorService.create = function(photos, containerElement) {
         var container = $("#container");
         container.html("");
         for (var url in photos) {
@@ -13,10 +13,11 @@ var app = app || {};
                 var rotateButtonelement = createRotateButtonElement();
                 imgContainerElement.append(imgElement)
                 imgContainerElement.append(rotateButtonelement);
-                app.transformsService.attachEvents(imgContainerElement);
-                container.append(imgContainerElement);
+                $(containerElement).append(imgContainerElement);
             })();
         }
+
+        return containerElement.childNodes;
     }
 
     function createImageContainerElement(photo) {

@@ -2,17 +2,16 @@ var app = app || {};
 
 (function () {
     app.photoService = {
-        photos: {},
-        initialize: initialize,
+        get: get,
         save: save,
     };
 
-    function initialize(query, forceRetreive) {
+    function get(query) {
         var photosStr = localStorage.getItem("photos");
-        if (photosStr && photosStr != "{}" && !forceRetreive) {
+        if (photosStr && photosStr != "{}" && query == undefined) {
             var def = $.Deferred();
-            app.photoService.photos = JSON.parse(photosStr);
-            def.resolve(app.photoService.photos);
+            var photos = JSON.parse(photosStr);
+            def.resolve(photos);
             return def.promise();
         }
         else {
@@ -22,18 +21,18 @@ var app = app || {};
 
     function fetchPhotos(query) {
         var def = $.Deferred();
-        app.photoService.photos = {};
+        var photos = {};
         app.flickrService.get(query).then(function (data) {
             for (var item of data) {
-                app.photoService.photos[item.media.m] = {
+                photos[item.media.m] = {
                     degree: Math.random() * 360,
                     top: Math.random() * (window.innerHeight - 300),
                     left: Math.random() * (window.innerWidth - 300),
                     url: item.media.m
                 }
             }
-            save();
-            def.resolve(app.photoService.photos);
+            save(photos);
+            def.resolve(photos);
         }).fail(function (err) {
             alert("Error occured while fetching from flickr.");
             def.reject(err);
@@ -41,7 +40,7 @@ var app = app || {};
         return def.promise();
     }
 
-    function save() {
-        localStorage.setItem("photos", JSON.stringify(app.photoService.photos));
+    function save(photos) {
+        localStorage.setItem("photos", JSON.stringify(photos));
     }
 })();
