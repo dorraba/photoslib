@@ -1,6 +1,6 @@
 var app = app || {};
 app.transformationsService = function () {
-    var _photos, _elements, _finishCallback;
+    var _photos, _elements, _photosUpdatedCallback;
     var _currentTransformingElement = null;
     var _currentPhoto = null;
     var _currentAction = null; //rotate, move
@@ -16,10 +16,10 @@ app.transformationsService = function () {
         disable: disableTransformation,
     }
 
-    function initialize(photos, elements, finishCallback) {
+    function initialize(photos, elements, photosUpdatedCallback) {
         _photos = photos;
         _elements = elements
-        _finishCallback = finishCallback;
+        _photosUpdatedCallback = photosUpdatedCallback;
 
     }
     function enableTransformation() {
@@ -83,7 +83,7 @@ app.transformationsService = function () {
         if (_currentTransformingElement) {
             _currentTransformingElement = null;
             _currentAction = null;
-            _finishCallback();
+            _photosUpdatedCallback();
         }
     }
     function mousemove(e) {
