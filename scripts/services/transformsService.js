@@ -6,7 +6,7 @@ app.transformationsService = function () {
     var _currentAction = null; //rotate, move
     var MOVE_ACTION = "move";
     var ROTATE_ACTION = "rotate";
-    var _originX, _originY;
+    var _originRelativeX, _originRelativeY;
     $(document).mouseup(mouseup);
     $(document).mousemove(mousemove);
 
@@ -54,8 +54,8 @@ app.transformationsService = function () {
         _currentTransformingElement = element;
         _currentPhoto = _photos[index];
         _currentAction = action;
-        _originX = _currentTransformingElement[0].offsetLeft - event.pageX;
-        _originY = _currentTransformingElement[0].offsetTop - event.pageY;
+        _originRelativeX = _currentTransformingElement[0].offsetLeft - event.pageX;
+        _originRelativeY = _currentTransformingElement[0].offsetTop - event.pageY;
     }
 
     function createOverlayElement() {
@@ -94,8 +94,8 @@ app.transformationsService = function () {
                 _currentPhoto.degree = degree;
             }
             else if (_currentAction == MOVE_ACTION) {
-                var top = e.pageY + _originY;
-                var left = e.pageX + _originX;
+                var top = e.pageY + _originRelativeY;
+                var left = e.pageX + _originRelativeX;
                 _currentTransformingElement.css({
                     top: top,
                     left: left
