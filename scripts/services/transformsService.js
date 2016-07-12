@@ -33,8 +33,9 @@ app.transformationsService = function () {
     }
 
     function attachEvents(element) {
-        var overlayElement = createOverlayElement();
+        var overlayElement;
         element.hover(function () {
+            overlayElement = createOverlayElement();
             element.append(overlayElement);
             var rotateButton = overlayElement.find(".rotatebtn");
             rotateButton.mousedown(function (e) {
@@ -44,7 +45,9 @@ app.transformationsService = function () {
                 startTranformationForElement(element, MOVE_ACTION, e);
             });
         }, function () {
-            overlayElement.remove();
+            if (overlayElement) {
+                overlayElement.remove();
+            }
         });
     }
 
