@@ -1,9 +1,11 @@
 var app = app || {};
 
 (function () {
-    app.elementsCreatorService = {};
+    app.elementsCreatorService = {
+        create: create
+    };
 
-    app.elementsCreatorService.create = function(photos, containerElement) {
+    function create(photos, containerElement) {
         var container = $("#container");
         container.html("");
         for (var url in photos) {
