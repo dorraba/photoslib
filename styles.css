@@ -1,15 +1,36 @@
-.imageitem{
+body{
+    margin:0;
+    overflow:hidden;
+}
+#container{
+    position:relative;
+    overflow:hidden;
+    height:95vh;
+}
+.editable .imageitem{
     cursor:move !important;
+}
+.imageitem{
     position:absolute;
     display:inline-block;
+    border:solid 1px white;
+}
+.imageitem img{
+    display: block;
+}
+#lock{
+    margin-left:10px;
+    width:100px;
 }
 .navbar{
         z-index:999;
+        background:#efefef;
+        padding:5px;
+        border-bottom:solid 1px silver;
 }
 input,button{
     padding:5px;
 }
-
 .rotatebtn{
     height:35px;
     width:35px;
@@ -18,9 +39,11 @@ input,button{
     position:absolute;
     top:0;
     left:0;
-    display:none;
 }
 
-.imageitem:hover .rotatebtn{
-    display:block;
+.editable .imageitem:hover{
+    border:solid 1px red;
+}
+#lock{
+    font-weight: bold;
 }

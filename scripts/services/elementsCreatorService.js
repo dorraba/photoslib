@@ -12,9 +12,7 @@ var app = app || {};
             (function () {
                 var imgContainerElement = createImageContainerElement(photos[url]);
                 var imgElement = createImageElement(url);
-                var rotateButtonelement = createRotateButtonElement();
                 imgContainerElement.append(imgElement)
-                imgContainerElement.append(rotateButtonelement);
                 $(containerElement).append(imgContainerElement);
             })();
         }
@@ -27,22 +25,19 @@ var app = app || {};
         element.css({
             "top": photo.top,
             "left": photo.left,
-            "transform": 'rotate(' + photo.degree + 'deg)',
-            "transform-origin": '50% 50%',
+             "transform": 'rotate(' + photo.degree + 'deg)',
+             "transform-origin": '50% 50%',
         });
         return element;
     }
 
     function createImageElement(url) {
         var element = $('<img />');
-        element.attr("src", url);
         element.attr("draggable", "false");
+        element.attr("src", url);
         return element;
     }
 
-    function createRotateButtonElement() {
-        var element = $('<button class="rotatebtn"></button>');
-        return element;
-    }
+  
 })();
 
